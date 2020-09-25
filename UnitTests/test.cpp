@@ -38,6 +38,18 @@ TEST(SkipListInsert_InsertKeyAdded_returnMinus1) {
   SkipListClose(&sl);
 }
 
+TEST(SkipListInsert_InsertNILKey_returnMinus1) {
+  skip_list_t sl;
+
+  SkipListIni(&sl);
+  EXPECT_EQ(-1, SkipListInsert(&sl, INT_MAX));
+  ASSERT_FALSE(sl.start == NULL);
+  ASSERT_EQ(sl.start->key, INT_MAX);
+  ASSERT_EQ(sl.start->next[0]->key, INT_MAX);
+
+  SkipListClose(&sl);
+}
+
 TEST(SkipListFind_FindKeyNotAdded_return0) {
   skip_list_t sl;
 
@@ -66,6 +78,18 @@ TEST(SkipListFind_FindKeyAdded_return1) {
   ASSERT_EQ(sl.start->next[0]->next[0], sl.start);
 
   sl.start->next[0] = sl.start;
+  SkipListClose(&sl);
+}
+
+TEST(SkipListFind_FindNILKey_return1) {
+  skip_list_t sl;
+
+  SkipListIni(&sl);
+
+  EXPECT_EQ(1, SkipListFind(&sl, INT_MAX));
+  ASSERT_EQ(sl.start->key, INT_MAX);
+  ASSERT_EQ(sl.start->next[0]->key, INT_MAX);
+
   SkipListClose(&sl);
 }
 
@@ -143,6 +167,18 @@ TEST(ListInsert_InsertKeyAdded_returnMinus1) {
   ListClose(&l);
 }
 
+TEST(ListInsert_InsertNILKey_returnMinus1) {
+  list_t l;
+
+  ListIni(&l);
+  EXPECT_EQ(-1, ListInsert(&l, INT_MAX));
+  ASSERT_FALSE(l.start == NULL);
+  ASSERT_EQ(l.start->key, INT_MAX);
+  ASSERT_EQ(l.start->next, (list_node_t *)NULL);
+
+  ListClose(&l);
+}
+
 TEST(ListFind_FindKeyNotAdded_return0) {
   list_t l;
 
@@ -170,6 +206,18 @@ TEST(ListFind_FindKeyAdded_return1) {
   ASSERT_EQ(l.start->next->next, (list_node_t*)NULL);
 
   l.start = l.start->next;
+
+  ListClose(&l);
+}
+
+TEST(ListFind_FindNILKey_returnMinus1) {
+  list_t l;
+
+  ListIni(&l);
+  EXPECT_EQ(1, ListFind(&l, INT_MAX));
+  ASSERT_FALSE(l.start == NULL);
+  ASSERT_EQ(l.start->key, INT_MAX);
+  ASSERT_EQ(l.start->next, (list_node_t*)NULL);
 
   ListClose(&l);
 }
