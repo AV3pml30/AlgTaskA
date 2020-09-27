@@ -19,7 +19,7 @@ TEST(SkipListInsert_InsertKeyNotAdded_return1) {
   SkipListClose(&sl);
 }
 
-TEST(SkipListInsert_InsertKeyAdded_returnMinus1) {
+TEST(SkipListInsert_InsertKeyAdded_returnMinus2) {
   skip_list_t sl;
   skip_list_node_t sln = {};
 
@@ -28,7 +28,7 @@ TEST(SkipListInsert_InsertKeyAdded_returnMinus1) {
   sln.next[0] = sl.start;
   sl.start->next[0] = &sln;
 
-  EXPECT_EQ(-1, SkipListInsert(&sl, 1));
+  EXPECT_EQ(-2, SkipListInsert(&sl, 1));
   ASSERT_FALSE(sl.start == NULL);
   ASSERT_EQ(sl.start->key, INT_MAX);
   ASSERT_EQ(sl.start->next[0]->key, 1);
@@ -38,11 +38,11 @@ TEST(SkipListInsert_InsertKeyAdded_returnMinus1) {
   SkipListClose(&sl);
 }
 
-TEST(SkipListInsert_InsertNILKey_returnMinus1) {
+TEST(SkipListInsert_InsertNILKey_returnMinus2) {
   skip_list_t sl;
 
   SkipListIni(&sl);
-  EXPECT_EQ(-1, SkipListInsert(&sl, INT_MAX));
+  EXPECT_EQ(-2, SkipListInsert(&sl, INT_MAX));
   ASSERT_FALSE(sl.start == NULL);
   ASSERT_EQ(sl.start->key, INT_MAX);
   ASSERT_EQ(sl.start->next[0]->key, INT_MAX);
@@ -148,7 +148,7 @@ TEST(ListInsert_InsertKeyNotAdded_return1) {
   ListClose(&l);
 }
 
-TEST(ListInsert_InsertKeyAdded_returnMinus1) {
+TEST(ListInsert_InsertKeyAdded_returnMinus2) {
   list_t l;
   list_node_t ln = {};
 
@@ -157,7 +157,7 @@ TEST(ListInsert_InsertKeyAdded_returnMinus1) {
   ln.next = l.start;
   l.start = &ln;
 
-  EXPECT_EQ(-1, ListInsert(&l, 1));
+  EXPECT_EQ(-2, ListInsert(&l, 1));
   ASSERT_FALSE(l.start == NULL);
   ASSERT_EQ(l.start->key, 1);
   ASSERT_EQ(l.start->next->key, INT_MAX);
@@ -167,11 +167,11 @@ TEST(ListInsert_InsertKeyAdded_returnMinus1) {
   ListClose(&l);
 }
 
-TEST(ListInsert_InsertNILKey_returnMinus1) {
+TEST(ListInsert_InsertNILKey_returnMinus2) {
   list_t l;
 
   ListIni(&l);
-  EXPECT_EQ(-1, ListInsert(&l, INT_MAX));
+  EXPECT_EQ(-2, ListInsert(&l, INT_MAX));
   ASSERT_FALSE(l.start == NULL);
   ASSERT_EQ(l.start->key, INT_MAX);
   ASSERT_EQ(l.start->next, (list_node_t *)NULL);
